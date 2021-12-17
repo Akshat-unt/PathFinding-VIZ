@@ -64,7 +64,7 @@ def main():
             print('done', current.f)
             start.show((255,8,127),0)
             temp = current.f
-            for i in range(round(current.f)):
+            for _ in range(round(current.f)):
                 current.closed = False
                 current.show((0,0,255), 0)
                 current = current.previous
@@ -102,7 +102,7 @@ def main():
             neighbor.h = searching(neighbor, end)
             neighbor.f = neighbor.g + neighbor.h
 
-            if neighbor.previous == None:
+            if neighbor.previous is None:
                 neighbor.previous = current
     if var.get():
         for i in range(len(openSet)):
@@ -119,10 +119,9 @@ def mousePress(x):
     g1 = t // (800 // cols)
     g2 = w // (800 // row)
     acess = grid[g1][g2]
-    if acess != start and acess != end:
-        if acess.obs == False:
-            acess.obs = True
-            acess.show((255, 255, 255), 0)
+    if acess not in [start, end] and acess.obs == False:
+        acess.obs = True
+        acess.show((255, 255, 255), 0)
 
 def onsubmit():
     global start
@@ -162,7 +161,7 @@ for i in range(cols):
     for j in range(row):
         grid[i][j].show((255, 255, 255), 1)
 
-for i in range(0,row):
+for i in range(row):
     grid[0][i].show(grey, 0)
     grid[0][i].obs = True
     grid[cols-1][i].obs = True
@@ -221,8 +220,7 @@ for i in range(cols):
         grid[i][j].addNeighborsBlocks(grid)
 
 def searching(n, e):
-    d = math.sqrt((n.i - e.i)**2 + (n.j - e.j)**2)
-    return d
+    return math.sqrt((n.i - e.i)**2 + (n.j - e.j)**2)
 
 while True:
     ev = pygame.event.poll()
